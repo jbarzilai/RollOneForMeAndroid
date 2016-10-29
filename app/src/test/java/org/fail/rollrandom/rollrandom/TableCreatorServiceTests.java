@@ -40,19 +40,17 @@ public class TableCreatorServiceTests {
 
     // Handle line weight ranges
     // Strip out "some" punctuation (i.e. handle apostrophes)
-    // Strip out whitespace before the outcome
     // Identify sub-tables
 
     @Test
     public void parseItem_Simple() throws Exception {
-        String outcome = "Twenty-four snakeskins";
-        String lineString = "1. " + outcome;
+        String lineString = "1. Twenty-four snakeskins";
 
         TableItem result = testObject.parseItem(lineString);
 
         assertNotNull(result);
         assertEquals(result.weight(), 1);
-        assertThat(result.outcome(), is(outcome));
+        assertThat(result.outcome(), is("Twenty-four snakeskins"));
     }
 
     @Test
