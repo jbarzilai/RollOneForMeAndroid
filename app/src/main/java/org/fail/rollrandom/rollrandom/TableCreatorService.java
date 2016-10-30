@@ -1,17 +1,21 @@
 package org.fail.rollrandom.rollrandom;
 
-import java.util.ArrayList;
+import android.util.IntProperty;
+import android.util.Pair;
+
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.fail.rollrandom.rollrandom.TableSource.*;
 
 /**
  * Created by barzilaj on 10/28/2016.
  */
 public class TableCreatorService {
-    public static final String LINE_REGEX = "^(\\d+)\\.(\\s*-+\\s*\\d+)?(.*)";
+    private static final String LINE_REGEX = "^(\\d+)\\.(\\s*-+\\s*\\d+)?(.*)";
+    private static final String HEADER_REGEX = "^(\\d+)?[dD](\\d+)(.*)";
 
     private Pattern linePattern;
     private Pattern headerPattern;
@@ -47,8 +51,6 @@ public class TableCreatorService {
         return item;
     }
 
-    private static final String HEADER_REGEX = "^(\\d+)?[dD](\\d+)(.*)";
-
     public Table parseTable(String tableString) {
         log("Original Table String: " + tableString);
 
@@ -81,5 +83,47 @@ public class TableCreatorService {
 
     private void log(String x) {
         System.out.println(x);
+    }
+
+    public TableSource parseTableSourceFromText(String rawText) {
+        TableSource tableSource = new TableSource();
+
+        List<String> lines = Arrays.asList(rawText.split("\n"));
+        tableSource.setLines(lines);
+
+        identityTableRanges(tableSource);
+
+        return tableSource;
+    }
+
+    private void identityTableRanges(TableSource tableSource) {
+        List<String> lines = tableSource.getLines();
+        Integer start = null;
+
+        for(int i = 0; i < lines.size(); i++) {
+            log(String.format("Evaluating line %s of %s", i, lines.size()));
+
+            String currentLine = lines.get(i);
+            log(currentLine);
+
+            Matcher m = headerPattern.matcher(currentLine);
+
+            if (m.matches()) {
+                log("****** Match on line " + i);
+
+                if (start == null) {
+                    start = i;
+                }
+                else {
+                    log(String.format("****** New Range from %s to %s", start, i - 1));
+                    tableSource.addTableRange(new TableRange(start, i - 1));
+                    start = i;
+                }
+            }
+        }
+
+        if (start != null) {
+            tableSource.addTableRange(new TableRange(start, lines.size() - 1));
+        }
     }
 }

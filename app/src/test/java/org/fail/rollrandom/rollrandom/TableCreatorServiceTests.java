@@ -1,6 +1,9 @@
 package org.fail.rollrandom.rollrandom;
 
-import org.hamcrest.core.IsEqual;
+import android.util.Pair;
+
+import org.hamcrest.beans.HasPropertyWithValue;
+import org.hamcrest.core.IsCollectionContaining;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,13 +12,14 @@ import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.notNull;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class TableCreatorServiceTests {
+public class TableCreatorServiceTests extends TestBase {
 
     private String tableTestString = "D12 Fashions\n"+
             "1. Twenty-four snakeskins.\n"+
@@ -90,4 +94,65 @@ public class TableCreatorServiceTests {
         assertThat(outcomeTwo.weight(), equalTo(2));
         assertThat(outcomeTwo.outcome(), equalTo("Woolen traveling cape."));
     }
+
+    @Test
+    public void parseSourceFromText_ParsesRawLines() throws Exception {
+        String text = loadTestFile("fashion_post_small.txt");
+
+        log(text);
+
+        TableSource tableSource = testObject.parseTableSourceFromText(text);
+
+        assertNotNull(tableSource);
+        assertThat(tableSource.getLines().size(), equalTo(15));
+    }
+
+    @Test
+    public void parseSourceFromText_FindsTableRanges() throws Exception {
+        String text = loadTestFile("fashion_post_small.txt");
+
+        log(text);
+
+        TableSource tableGroup = testObject.parseTableSourceFromText(text);
+
+        List<TableRange> tableRanges = tableGroup.getTableRanges();
+        assertThat(tableRanges.size(), equalTo(1));
+        TableRange rangePair = tableRanges.get(0);
+        assertThat(rangePair.start, equalTo(2));
+        assertThat(rangePair.stop, equalTo(14));
+    }
+
+    @Test
+    public void parseSourceFromText_FindsTableRanges_MultipleTables() throws Exception {
+        String text = loadTestFile("fashion_post.txt");
+
+        log(text);
+
+        TableSource tableGroup = testObject.parseTableSourceFromText(text);
+
+        List<TableRange> tableRanges = tableGroup.getTableRanges();
+            assertThat(tableRanges.size(), equalTo(2));
+
+        TableRange rangePair = tableRanges.get(0);
+        assertThat(rangePair.start, equalTo(2));
+        assertThat(rangePair.stop, equalTo(16));
+
+        TableRange rangePairTwo = tableRanges.get(1);
+        assertThat(rangePairTwo.start, equalTo(17));
+        assertThat(rangePairTwo.stop, equalTo(44));
+    }
+
+    @Test
+    public void parseSourceFromText_ParsesTables() throws Exception {
+        String text = loadTestFile("fashion_post.txt");
+
+        log(text);
+
+        TableSource tableGroup = testObject.parseTableSourceFromText(text);
+
+        List<Table> tables = tableGroup.getTables();
+        assertThat(tables.size(), equalTo(4));
+        assertThat(tables, IsCollectionContaining.hasItem(HasPropertyWithValue.<Table>hasProperty("header", equalTo("Fashion"))));
+    }
+
 }
