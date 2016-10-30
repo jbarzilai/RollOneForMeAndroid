@@ -9,7 +9,7 @@ import java.util.List;
  * Created by barzilaj on 10/30/2016.
  */
 public class TableSource {
-    private List<Table> tables;
+    private List<Table> tables = new ArrayList<>();
     private List<String> lines = new ArrayList<>();
     private List<TableRange> tableRanges = new ArrayList<>();
 
@@ -17,8 +17,8 @@ public class TableSource {
         return tables;
     }
 
-    public void setTables(List<Table> tables) {
-        this.tables = tables;
+    public void addTable(Table table) {
+        tables.add(table);
     }
 
     public List<String> getLines() {
@@ -33,12 +33,7 @@ public class TableSource {
         return tableRanges;
     }
 
-    public void setTableRanges(List<TableRange> tableRanges) {
-        this.tableRanges = tableRanges;
-    }
-
     public void addTableRange(TableRange range) {
         tableRanges.add(range);
     }
-
 }

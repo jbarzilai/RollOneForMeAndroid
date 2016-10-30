@@ -1,7 +1,5 @@
 package org.fail.rollrandom.rollrandom;
 
-import android.util.Pair;
-
 import org.hamcrest.beans.HasPropertyWithValue;
 import org.hamcrest.core.IsCollectionContaining;
 import org.junit.Before;
@@ -64,7 +62,7 @@ public class TableCreatorServiceTests extends TestBase {
         Table result = testObject.parseTable(tableTestString);
 
         assertNotNull(result);
-        assertThat(result.die(), is(4));
+        assertThat(result.getDie(), is(4));
     }
 
     @Test
@@ -74,7 +72,7 @@ public class TableCreatorServiceTests extends TestBase {
         Table result = testObject.parseTable(tableTestString);
 
         assertNotNull(result);
-        assertThat(result.header(), is("Fashions"));
+        assertThat(result.getHeader(), is("Fashions"));
     }
 
     @Test
@@ -85,7 +83,7 @@ public class TableCreatorServiceTests extends TestBase {
 
         Table result = testObject.parseTable(tableTestString);
 
-        List<TableItem> resultOutcomes = result.outcomes();
+        List<TableItem> resultOutcomes = result.getOutcomes();
         assertThat(resultOutcomes.size(), equalTo(2));
         TableItem outcomeOne = resultOutcomes.get(0);
         assertThat(outcomeOne.weight(), equalTo(1));
@@ -119,7 +117,7 @@ public class TableCreatorServiceTests extends TestBase {
         assertThat(tableRanges.size(), equalTo(1));
         TableRange rangePair = tableRanges.get(0);
         assertThat(rangePair.start, equalTo(2));
-        assertThat(rangePair.stop, equalTo(14));
+        assertThat(rangePair.stop, equalTo(15));
     }
 
     @Test
@@ -135,11 +133,11 @@ public class TableCreatorServiceTests extends TestBase {
 
         TableRange rangePair = tableRanges.get(0);
         assertThat(rangePair.start, equalTo(2));
-        assertThat(rangePair.stop, equalTo(14));
+        assertThat(rangePair.stop, equalTo(15));
 
         TableRange rangePairTwo = tableRanges.get(1);
         assertThat(rangePairTwo.start, equalTo(17));
-        assertThat(rangePairTwo.stop, equalTo(37));
+        assertThat(rangePairTwo.stop, equalTo(38));
     }
 
     @Test
@@ -151,8 +149,9 @@ public class TableCreatorServiceTests extends TestBase {
         TableSource tableGroup = testObject.parseTableSourceFromText(text);
 
         List<Table> tables = tableGroup.getTables();
-        assertThat(tables.size(), equalTo(4));
-        assertThat(tables, IsCollectionContaining.hasItem(HasPropertyWithValue.<Table>hasProperty("header", equalTo("Fashion"))));
+        assertThat(tables.size(), equalTo(2));
+        assertThat(tables, IsCollectionContaining.hasItem(HasPropertyWithValue.<Table>hasProperty("header", equalTo("Fashions"))));
+        assertThat(tables, IsCollectionContaining.hasItem(HasPropertyWithValue.<Table>hasProperty("header", equalTo("Identifiers"))));
     }
 
 }

@@ -54,8 +54,12 @@ public class TableCreatorService {
     public Table parseTable(String tableString) {
         log("Original Table String: " + tableString);
 
-
         List<String> lines = Arrays.asList(tableString.split("\n"));
+
+        return parseTable(lines);
+    }
+
+    private Table parseTable(List<String> lines) {
         String headerString = lines.get(0);
 
         Matcher m = headerPattern.matcher(headerString);
@@ -76,13 +80,7 @@ public class TableCreatorService {
         for (String itemStr: lines.subList(1, lines.size())) {
             table.addOutcome(parseItem(itemStr));
         }
-
-
         return table;
-    }
-
-    private void log(String x) {
-        System.out.println(x);
     }
 
     public TableSource parseTableSourceFromText(String rawText) {
@@ -92,6 +90,11 @@ public class TableCreatorService {
         tableSource.setLines(lines);
 
         identityTableRanges(tableSource);
+
+        for (TableRange range : tableSource.getTableRanges()) {
+            Table t = parseTable(lines.subList(range.start, range.stop));
+            tableSource.addTable(t);
+        }
 
         return tableSource;
     }
@@ -107,7 +110,7 @@ public class TableCreatorService {
             Matcher m = headerPattern.matcher(currentLine);
 
             if (m.matches()) {
-                log("****** Possible die line at " + i);
+                log("****** Possible getDie line at " + i);
 
                 int start = i;
                 int stop = i + 1;
@@ -120,10 +123,14 @@ public class TableCreatorService {
                 log("Print first and last of range for testing");
                 log(lines.get(start));
                 log(lines.get(stop - 1));
-                tableSource.addTableRange(new TableRange(start, stop - 1));
+                tableSource.addTableRange(new TableRange(start, stop));
                 i = stop - 1;
             }
             i++;
         }
+    }
+
+    private void log(String x) {
+        System.out.println(x);
     }
 }

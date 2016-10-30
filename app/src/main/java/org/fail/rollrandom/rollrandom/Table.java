@@ -18,15 +18,19 @@ public class Table {
         this.outcomes = new ArrayList<>();
     }
 
-    public int die() {
+    public int getDie() {
         return die;
     }
 
-    public String header() {
+    public String getHeader() {
         return header;
     }
 
-    public List<TableItem> outcomes() {
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public List<TableItem> getOutcomes() {
         return outcomes;
     }
 

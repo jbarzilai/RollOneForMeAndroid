@@ -11,11 +11,11 @@ public class TableRoller {
     }
 
     public RollResult rollTable(Table table) {
-        RollResult result = new RollResult(table.header());
+        RollResult result = new RollResult(table.getHeader());
 
-        int dieRoll = randomizer.roll(table.die());
+        int dieRoll = randomizer.roll(table.getDie());
         result.setRolledNumber(dieRoll);
-        TableItem chosenOutcome = table.outcomes().get(dieRoll - 1);
+        TableItem chosenOutcome = table.getOutcomes().get(dieRoll - 1);
 
         if (chosenOutcome.weight() != dieRoll) {
             throw new RuntimeException("WTF BBQ");
