@@ -135,11 +135,11 @@ public class TableCreatorServiceTests extends TestBase {
 
         TableRange rangePair = tableRanges.get(0);
         assertThat(rangePair.start, equalTo(2));
-        assertThat(rangePair.stop, equalTo(16));
+        assertThat(rangePair.stop, equalTo(14));
 
         TableRange rangePairTwo = tableRanges.get(1);
         assertThat(rangePairTwo.start, equalTo(17));
-        assertThat(rangePairTwo.stop, equalTo(44));
+        assertThat(rangePairTwo.stop, equalTo(37));
     }
 
     @Test

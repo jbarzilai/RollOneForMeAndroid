@@ -98,32 +98,32 @@ public class TableCreatorService {
 
     private void identityTableRanges(TableSource tableSource) {
         List<String> lines = tableSource.getLines();
-        Integer start = null;
 
-        for(int i = 0; i < lines.size(); i++) {
-            log(String.format("Evaluating line %s of %s", i, lines.size()));
-
-            String currentLine = lines.get(i);
+        int i = 0;
+        while (i < lines.size()) {
+            String currentLine = lines.get(i).trim();
             log(currentLine);
 
             Matcher m = headerPattern.matcher(currentLine);
 
             if (m.matches()) {
-                log("****** Match on line " + i);
+                log("****** Possible die line at " + i);
 
-                if (start == null) {
-                    start = i;
+                int start = i;
+                int stop = i + 1;
+
+                while (stop < lines.size() && Pattern.matches("^[0-9].*", lines.get(stop))) {
+                    log(lines.get(stop));
+                    stop++;
                 }
-                else {
-                    log(String.format("****** New Range from %s to %s", start, i - 1));
-                    tableSource.addTableRange(new TableRange(start, i - 1));
-                    start = i;
-                }
+                log(String.format("****** New Range from %s to %s", start, stop));
+                log("Print first and last of range for testing");
+                log(lines.get(start));
+                log(lines.get(stop - 1));
+                tableSource.addTableRange(new TableRange(start, stop - 1));
+                i = stop - 1;
             }
-        }
-
-        if (start != null) {
-            tableSource.addTableRange(new TableRange(start, lines.size() - 1));
+            i++;
         }
     }
 }
