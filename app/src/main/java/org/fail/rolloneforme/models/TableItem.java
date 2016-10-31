@@ -1,4 +1,4 @@
-package org.fail.rollrandom.rollrandom;
+package org.fail.rolloneforme.models;
 
 /**
  * Created by barzilaj on 10/28/2016.

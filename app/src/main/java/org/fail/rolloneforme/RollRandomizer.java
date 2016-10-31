@@ -1,4 +1,4 @@
-package org.fail.rollrandom.rollrandom;
+package org.fail.rolloneforme;
 
 import java.util.Random;
 

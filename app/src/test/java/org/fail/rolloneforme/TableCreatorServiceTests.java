@@ -1,5 +1,9 @@
-package org.fail.rollrandom.rollrandom;
+package org.fail.rolloneforme;
 
+import org.fail.rolloneforme.models.Table;
+import org.fail.rolloneforme.models.TableItem;
+import org.fail.rolloneforme.models.TableRange;
+import org.fail.rolloneforme.models.TableSource;
 import org.hamcrest.beans.HasPropertyWithValue;
 import org.hamcrest.core.IsCollectionContaining;
 import org.junit.Before;
@@ -9,8 +13,9 @@ import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.notNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

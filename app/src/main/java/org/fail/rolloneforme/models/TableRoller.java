@@ -1,4 +1,6 @@
-package org.fail.rollrandom.rollrandom;
+package org.fail.rolloneforme.models;
+
+import org.fail.rolloneforme.RollRandomizer;
 
 /**
  * Created by barzilaj on 10/29/2016.

@@ -1,6 +1,4 @@
-package org.fail.rollrandom.rollrandom;
-
-import android.util.Pair;
+package org.fail.rolloneforme.models;
 
 import java.util.ArrayList;
 import java.util.List;

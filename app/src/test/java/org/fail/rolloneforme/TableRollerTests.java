@@ -1,12 +1,15 @@
-package org.fail.rollrandom.rollrandom;
+package org.fail.rolloneforme;
 
+import org.fail.rolloneforme.models.RollResult;
+import org.fail.rolloneforme.models.Table;
+import org.fail.rolloneforme.models.TableItem;
+import org.fail.rolloneforme.models.TableRoller;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 /**

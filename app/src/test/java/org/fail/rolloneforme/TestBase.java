@@ -1,4 +1,4 @@
-package org.fail.rollrandom.rollrandom;
+package org.fail.rolloneforme;
 
 import org.junit.Before;
 import org.mockito.MockitoAnnotations;

@@ -1,14 +1,14 @@
-package org.fail.rollrandom.rollrandom;
+package org.fail.rolloneforme;
 
-import android.util.IntProperty;
-import android.util.Pair;
+import org.fail.rolloneforme.models.Table;
+import org.fail.rolloneforme.models.TableItem;
+import org.fail.rolloneforme.models.TableRange;
+import org.fail.rolloneforme.models.TableSource;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static org.fail.rollrandom.rollrandom.TableSource.*;
 
 /**
  * Created by barzilaj on 10/28/2016.

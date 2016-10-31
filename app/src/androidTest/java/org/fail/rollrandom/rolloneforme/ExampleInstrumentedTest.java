@@ -1,4 +1,4 @@
-package org.fail.rollrandom.rollrandom;
+package org.fail.rollrandom.rolloneforme;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

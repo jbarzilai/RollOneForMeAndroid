@@ -1,4 +1,4 @@
-package org.fail.rollrandom.rollrandom;
+package org.fail.rolloneforme.models;
 
 import java.util.ArrayList;
 import java.util.List;
