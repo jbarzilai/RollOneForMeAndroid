@@ -19,20 +19,6 @@ import static org.mockito.Matchers.notNull;
  */
 public class TableCreatorServiceTests extends TestBase {
 
-    private String tableTestString = "D12 Fashions\n"+
-            "1. Twenty-four snakeskins.\n"+
-            "2. Woolen traveling cape.\n"+
-            "3. Almost translucent wrap.\n"+
-            "4. Close-fit cowl.\n"+
-            "5. Heavy, stiff overgown.\n"+
-            "6. Pale rose robes.\n"+
-            "7. Too-large shirt.\n"+
-            "8. Sabatons and greaves.\n"+
-            "9. Blatantly armored breastplate.\n"+
-            "10. Voluminous shawl.\n"+
-            "11. Jacket.\n"+
-            "12. Blouse";
-
     TableCreatorService testObject;
 
     @Before
